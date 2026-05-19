@@ -29,6 +29,8 @@ import {
 import { Button } from "./ui/button"
 import { logout } from "@/redux/slices/authSlice"
 
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "./ui/alert-dialog"
+
 const adminItems = [
     {
         title: "Dashboard",
@@ -95,8 +97,8 @@ const AppSidebar = () => {
                     to="/admin/dashboard"
                     className="flex items-center gap-3"
                 >
-                    <div className="flex h-9 w-9 items-center justify-center rounded-md border border-blue-600">
-                        <FileQuestionMark className="h-5 w-5 text-blue-600" />
+                    <div className="flex h-9 w-9 items-center justify-center rounded-md border border-primary">
+                        <FileQuestionMark className="h-5 w-5 " />
                     </div>
 
                     <div>
@@ -161,13 +163,48 @@ const AppSidebar = () => {
             <SidebarFooter className="border-t px-3 py-3">
                 <SidebarMenu>
                     <SidebarMenuItem>
-                        <SidebarMenuButton
-                            onClick={handleClick}
-                            variant="outline"
-                            className="h-10 rounded-md  flex justify-center"
-                        >
-                            Logout
-                        </SidebarMenuButton>
+
+                        <AlertDialog>
+
+                            <AlertDialogTrigger asChild>
+                                <SidebarMenuButton
+                                    className="h-10 rounded-md flex justify-center text-red-600 hover:text-red-600"
+                                >
+                                    Logout
+                                </SidebarMenuButton>
+                            </AlertDialogTrigger>
+
+                            <AlertDialogContent>
+
+                                <AlertDialogHeader>
+                                    <AlertDialogTitle>
+                                        Logout?
+                                    </AlertDialogTitle>
+
+                                    <AlertDialogDescription>
+                                        You will need to login again to access your account.
+                                    </AlertDialogDescription>
+                                </AlertDialogHeader>
+
+                                <AlertDialogFooter>
+
+                                    <AlertDialogCancel>
+                                        Cancel
+                                    </AlertDialogCancel>
+
+                                    <AlertDialogAction
+                                        onClick={handleClick}
+                                        className="bg-red-600 hover:bg-red-700"
+                                    >
+                                        Logout
+                                    </AlertDialogAction>
+
+                                </AlertDialogFooter>
+
+                            </AlertDialogContent>
+
+                        </AlertDialog>
+
                     </SidebarMenuItem>
                 </SidebarMenu>
             </SidebarFooter>

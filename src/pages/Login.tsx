@@ -150,8 +150,8 @@ const Login = () => {
             <Card className="w-full max-w-md overflow-hidden border border-slate-200 shadow-sm pt-0">
                 <CardHeader className="border-b bg-[#f2f4ff] px-6 py-6">
                     <div className="flex items-center gap-3">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-md border border-blue-600 bg-white">
-                            <FileQuestionMark className="h-5 w-5 text-blue-600" />
+                        <div className="flex h-10 w-10 items-center justify-center rounded-md border border-primary bg-white">
+                            <FileQuestionMark className="h-5 w-5 text-primary" />
                         </div>
 
                         <div>
@@ -269,11 +269,11 @@ const Login = () => {
                     </form>
 
                     <div className="mt-8 text-center text-sm text-slate-600">
-                        Need help?{" "}
+                        Don't have an account?
 
-                        <button className="text-blue-600 hover:underline">
-                            Contact Administrator
-                        </button>
+                        <Button onClick={() => navigate("/register")} variant="link" className="hover:underline">
+                            Register here
+                        </Button>
                     </div>
                 </CardContent>
             </Card>

@@ -39,7 +39,6 @@ const NotFound = () => {
                     <div className="flex flex-wrap items-center justify-center gap-3">
                         <Button
                             asChild
-                            className="bg-blue-700 hover:bg-blue-800"
                         >
                             <Link to="/">
                                 Dashboard

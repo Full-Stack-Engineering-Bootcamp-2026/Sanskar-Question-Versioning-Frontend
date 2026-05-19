@@ -418,7 +418,6 @@ const CreateQuestion = () => {
                                 disabled={
                                     isSubmitting
                                 }
-                                className="bg-blue-700 hover:bg-blue-800"
                             >
                                 {
                                     isSubmitting

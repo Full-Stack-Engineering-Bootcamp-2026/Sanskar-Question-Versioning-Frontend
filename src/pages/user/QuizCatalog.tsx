@@ -118,8 +118,8 @@ const QuizCatalog = () => {
                                     >
                                         <CardHeader className="space-y-4">
                                             <div className="flex items-center justify-between">
-                                                <div className="rounded-md bg-blue-100 p-2">
-                                                    <BookOpen className="h-5 w-5 text-blue-700" />
+                                                <div className="rounded-md bg-primary-foreground p-2">
+                                                    <BookOpen className="h-5 w-5" />
                                                 </div>
 
                                                 <Badge variant="secondary">
