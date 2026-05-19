@@ -1,4 +1,7 @@
-import { ArrowRight, FileQuestionMark } from "lucide-react"
+import {
+    ArrowRight,
+    FileQuestionMark,
+} from "lucide-react"
 
 import {
     Card,
@@ -27,127 +30,141 @@ import axios from "axios"
 
 import Joi from "joi"
 
-import { useDispatch } from "react-redux"
-
-import { loginSuccess } from "@/redux/slices/authSlice"
-
 import { toast } from "react-toastify"
 
 import {
+    Link,
     useNavigate,
 } from "react-router-dom"
 
-interface LoginFormData {
+interface RegisterFormData {
+    name: string
+
     email: string
 
     password: string
 }
 
-const loginUserSchema =
+const registerUserSchema =
     Joi.object({
+        name: Joi.string()
+            .required()
+            .min(3)
+            .max(30)
+            .messages({
+                "string.base":
+                    "Name must be a string",
+
+                "string.empty":
+                    "Name is required",
+
+                "string.min":
+                    "Name must be at least 3 characters long",
+
+                "string.max":
+                    "Name cannot exceed 30 characters",
+
+                "any.required":
+                    "Name is required",
+            }),
+
         email: Joi.string()
             .trim()
             .lowercase()
             .email()
             .required()
             .messages({
+                "string.base":
+                    "Email must be a string",
+
                 "string.empty":
                     "Email is required",
 
                 "string.email":
-                    "Invalid email format",
+                    "Please enter a valid email address",
+
+                "any.required":
+                    "Email is required",
             }),
 
         password: Joi.string()
             .min(6)
             .max(20)
             .required()
-            .trim()
             .messages({
+                "string.base":
+                    "Password must be a string",
+
                 "string.empty":
+                    "Password is required",
+
+                "string.min":
+                    "Password must be at least 6 characters long",
+
+                "string.max":
+                    "Password cannot exceed 20 characters",
+
+                "any.required":
                     "Password is required",
             }),
     })
 
-const Login = () => {
+const Register = () => {
     const navigate =
         useNavigate()
 
-    const dispatch =
-        useDispatch()
-
     const {
         register,
+
         handleSubmit,
 
         formState: {
             errors,
             isSubmitting,
         },
-    } = useForm<LoginFormData>({
+    } = useForm<RegisterFormData>({
         resolver:
             joiResolver(
-                loginUserSchema
+                registerUserSchema
             ),
 
         defaultValues: {
+            name: "",
+
             email: "",
+
             password: "",
         },
     })
 
     const onSubmit:
-        SubmitHandler<LoginFormData> =
+        SubmitHandler<RegisterFormData> =
         async (
             data
         ) => {
             try {
-                const response =
-                    await axios.post(
-                        "http://localhost:3000/api/users/login",
-                        data
-                    )
-
-                dispatch(
-                    loginSuccess({
-                        user:
-                            response.data.data.user,
-
-                        token:
-                            response.data.data.accessToken,
-                    })
+                await axios.post(
+                    "http://localhost:3000/api/users/register",
+                    data
                 )
 
                 toast.success(
-                    "Login successful"
+                    "Registration successful"
                 )
 
-                const role =
-                    response.data.data.user.role
-
-                if (
-                    role === "ADMIN"
-                ) {
-                    navigate(
-                        "/admin/quizzes"
-                    )
-                } else {
-                    navigate(
-                        "/quizzes"
-                    )
-                }
+                navigate("/")
             } catch (err) {
                 console.log(err)
 
                 toast.error(
-                    "Invalid email or password"
+                    "Registration failed"
                 )
             }
         }
 
     return (
         <div className="flex min-h-screen items-center justify-center bg-[#f5f7fb] px-4">
-            <Card className="w-full max-w-md overflow-hidden border border-slate-200 shadow-sm pt-0">
+            <Card className="w-full max-w-md overflow-hidden border border-slate-200 shadow-sm">
                 <CardHeader className="border-b bg-[#f2f4ff] px-6 py-6">
                     <div className="flex items-center gap-3">
                         <div className="flex h-10 w-10 items-center justify-center rounded-md border border-blue-600 bg-white">
@@ -160,13 +177,13 @@ const Login = () => {
                             </CardTitle>
 
                             <CardDescription className="mt-1 text-sm text-slate-600">
-                                Quiz Management Portal
+                                Create your account
                             </CardDescription>
                         </div>
                     </div>
                 </CardHeader>
 
-                <CardContent className="px-6 py-2">
+                <CardContent className="px-6 py-8">
                     <form
                         onSubmit={handleSubmit(
                             onSubmit
@@ -174,16 +191,43 @@ const Login = () => {
                         className="space-y-6"
                     >
                         <div className="space-y-2">
-                            <Label
-                                htmlFor="email"
-                            >
+                            <Label htmlFor="name">
+                                Full Name
+                            </Label>
+
+                            <Input
+                                id="name"
+                                placeholder="John Doe"
+                                className="h-11"
+                                {
+                                ...register(
+                                    "name"
+                                )
+                                }
+                            />
+
+                            {
+                                errors.name && (
+                                    <p className="text-sm text-red-500">
+                                        {
+                                            errors
+                                                .name
+                                                .message
+                                        }
+                                    </p>
+                                )
+                            }
+                        </div>
+
+                        <div className="space-y-2">
+                            <Label htmlFor="email">
                                 Email Address
                             </Label>
 
                             <Input
                                 id="email"
                                 type="email"
-                                placeholder="admin@quizmaster.com"
+                                placeholder="john@example.com"
                                 className="h-11"
                                 {
                                 ...register(
@@ -206,21 +250,9 @@ const Login = () => {
                         </div>
 
                         <div className="space-y-2">
-                            <div className="flex items-center justify-between">
-                                <Label
-                                    htmlFor="password"
-                                >
-                                    Password
-                                </Label>
-
-                                <Button
-                                    variant="link"
-                                    type="button"
-                                    className="text-xs  hover:underline"
-                                >
-                                    Forgot password?
-                                </Button>
-                            </div>
+                            <Label htmlFor="password">
+                                Password
+                            </Label>
 
                             <Input
                                 id="password"
@@ -252,12 +284,12 @@ const Login = () => {
                             disabled={
                                 isSubmitting
                             }
-                            className="h-11 w-full hover:bg-gray-700 transition duration-300"
+                            className="h-11 w-full bg-blue-700 hover:bg-blue-800"
                         >
                             {
                                 isSubmitting
-                                    ? "Logging in..."
-                                    : "Login"
+                                    ? "Creating account..."
+                                    : "Register"
                             }
 
                             {
@@ -269,11 +301,14 @@ const Login = () => {
                     </form>
 
                     <div className="mt-8 text-center text-sm text-slate-600">
-                        Need help?{" "}
+                        Already have an account?{" "}
 
-                        <button className="text-blue-600 hover:underline">
-                            Contact Administrator
-                        </button>
+                        <Link
+                            to="/"
+                            className="text-blue-600 hover:underline"
+                        >
+                            Login
+                        </Link>
                     </div>
                 </CardContent>
             </Card>
@@ -281,4 +316,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default Register
