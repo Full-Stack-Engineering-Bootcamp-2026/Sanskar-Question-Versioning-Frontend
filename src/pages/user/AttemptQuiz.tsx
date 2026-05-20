@@ -33,6 +33,8 @@ import {
 } from "@/components/ui/radio-group"
 import { useSelector } from "react-redux"
 import type { RootState } from "@/redux/stores/store"
+import { TypingAnimation } from "@/components/ui/typing-animation"
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog"
 
 interface Option {
     publicId: string
@@ -237,6 +239,47 @@ const AttemptQuiz = () => {
 
     const submitQuiz =
         async () => {
+            if (!quiz) return
+
+            for (const question of quiz.questions) {
+
+                const answer =
+                    answers.find((item) => item.questionVersionPublicId === question.questionVersionPublicId)
+
+                if (!answer) {
+                    toast.error("Please answer all questions")
+                    return
+                }
+
+                if (
+                    question.answerType ===
+                    "TEXT"
+                ) {
+                    if (
+                        !answer.textAnswer ||
+                        answer.textAnswer.trim() === ""
+                    ) {
+                        toast.error(
+                            "Please answer all questions"
+                        )
+
+                        return
+                    }
+                }
+
+                else {
+                    if (
+                        !answer.selectedOptions ||
+                        answer.selectedOptions.length === 0
+                    ) {
+                        toast.error(
+                            "Please answer all questions"
+                        )
+
+                        return
+                    }
+                }
+            }
             try {
                 setIsSubmitting(
                     true
@@ -296,7 +339,7 @@ const AttemptQuiz = () => {
                 </h1>
 
                 <p className="mt-1 text-sm text-muted-foreground">
-                    Answer all questions carefully.
+                    <TypingAnimation>Answer all questions carefully.</TypingAnimation>
                 </p>
             </div>
 
@@ -437,20 +480,57 @@ const AttemptQuiz = () => {
             }
 
             <div className="flex justify-end">
-                <Button
-                    onClick={
-                        submitQuiz
-                    }
-                    disabled={
-                        isSubmitting
-                    }
-                >
-                    {
-                        isSubmitting
-                            ? "Submitting..."
-                            : "Submit Quiz"
-                    }
-                </Button>
+
+                <AlertDialog>
+
+                    <AlertDialogTrigger asChild>
+                        <Button
+                            disabled={
+                                isSubmitting
+                            }
+                        >
+                            {
+                                isSubmitting
+                                    ? "Submitting..."
+                                    : "Submit Quiz"
+                            }
+                        </Button>
+                    </AlertDialogTrigger>
+
+                    <AlertDialogContent>
+
+                        <AlertDialogHeader>
+
+                            <AlertDialogTitle>
+                                Submit Quiz?
+                            </AlertDialogTitle>
+
+                            <AlertDialogDescription>
+                                Once submitted, you will not be able to change your answers.
+                            </AlertDialogDescription>
+
+                        </AlertDialogHeader>
+
+                        <AlertDialogFooter>
+
+                            <AlertDialogCancel>
+                                Cancel
+                            </AlertDialogCancel>
+
+                            <AlertDialogAction
+                                onClick={
+                                    submitQuiz
+                                }
+                            >
+                                Confirm Submit
+                            </AlertDialogAction>
+
+                        </AlertDialogFooter>
+
+                    </AlertDialogContent>
+
+                </AlertDialog>
+
             </div>
         </div>
     )

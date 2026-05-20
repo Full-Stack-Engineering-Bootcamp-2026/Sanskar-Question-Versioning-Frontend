@@ -36,7 +36,7 @@ import EditQuestion from "./pages/admin/EditQuestion"
 export function App() {
   return (
     <>
-      <ToastContainer />
+      <ToastContainer theme="dark" />
       <Routes>
         <Route element={<PublicRoute />}>
           <Route

@@ -103,8 +103,10 @@ const QuizList = () => {
             publicId: string
         ) => {
             try {
-                await axios.delete(
+
+                await axios.patch(
                     `http://localhost:3000/api/quizzes/${publicId}`,
+                    {},
                     {
                         headers: {
                             Authorization:
@@ -118,7 +120,9 @@ const QuizList = () => {
                 )
 
                 fetchQuizzes()
+
             } catch (error) {
+
                 console.log(error)
 
                 toast.error(

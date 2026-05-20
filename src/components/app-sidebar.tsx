@@ -91,7 +91,7 @@ const AppSidebar = () => {
         : userItems
 
     return (
-        <Sidebar className="border-r bg-white">
+        <Sidebar className="border-r ">
             <SidebarHeader className="border-b px-4 py-4">
                 <Link
                     to="/admin/dashboard"
@@ -102,11 +102,11 @@ const AppSidebar = () => {
                     </div>
 
                     <div>
-                        <h2 className="font-serif text-lg font-semibold text-gray-900">
+                        <h2 className="font-serif text-lg font-semibold">
                             QuizMaster
                         </h2>
 
-                        <p className="text-xs text-gray-500">
+                        <p className="text-xs">
                             Internal Management
                         </p>
                     </div>
@@ -167,11 +167,12 @@ const AppSidebar = () => {
                         <AlertDialog>
 
                             <AlertDialogTrigger asChild>
-                                <SidebarMenuButton
-                                    className="h-10 rounded-md flex justify-center text-red-600 hover:text-red-600"
+                                <Button
+                                    variant={"outline"}
+                                    className="h-10 w-full rounded-md flex justify-center text-red-600 hover:text-red-600"
                                 >
                                     Logout
-                                </SidebarMenuButton>
+                                </Button>
                             </AlertDialogTrigger>
 
                             <AlertDialogContent>

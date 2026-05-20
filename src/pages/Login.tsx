@@ -36,6 +36,7 @@ import { toast } from "react-toastify"
 import {
     useNavigate,
 } from "react-router-dom"
+import { BorderBeam } from "@/components/ui/border-beam"
 
 interface LoginFormData {
     email: string
@@ -146,9 +147,9 @@ const Login = () => {
         }
 
     return (
-        <div className="flex min-h-screen items-center justify-center bg-[#f5f7fb] px-4">
-            <Card className="w-full max-w-md overflow-hidden border border-slate-200 shadow-sm pt-0">
-                <CardHeader className="border-b bg-[#f2f4ff] px-6 py-6">
+        <div className="flex min-h-screen items-center justify-center  px-4">
+            <Card className="relative w-full max-w-md overflow-hidden border  shadow-sm pt-0">
+                <CardHeader className="border-b  px-6 py-6">
                     <div className="flex items-center gap-3">
                         <div className="flex h-10 w-10 items-center justify-center rounded-md border border-primary bg-white">
                             <FileQuestionMark className="h-5 w-5 text-primary" />
@@ -275,7 +276,9 @@ const Login = () => {
                             Register here
                         </Button>
                     </div>
+
                 </CardContent>
+                <BorderBeam duration={8} size={100} />
             </Card>
         </div>
     )

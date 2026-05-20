@@ -9,7 +9,7 @@ import AppSidebar from "@/components/app-sidebar"
 const Layout = () => {
     return (
         <SidebarProvider>
-            <div className="flex min-h-screen w-full bg-[#f8fafc]">
+            <div className="flex min-h-screen w-full">
                 <AppSidebar />
 
                 <main className="min-w-0 flex-1 overflow-x-hidden">

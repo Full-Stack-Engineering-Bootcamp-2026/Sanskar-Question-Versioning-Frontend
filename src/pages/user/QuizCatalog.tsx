@@ -28,6 +28,8 @@ import {
 import { Link } from "react-router-dom"
 import { useSelector } from "react-redux"
 import type { RootState } from "@/redux/stores/store"
+import { BorderBeam } from "@/components/ui/border-beam"
+import { TypingAnimation } from "@/components/ui/typing-animation"
 
 interface Quiz {
     publicId: string
@@ -48,7 +50,7 @@ const QuizCatalog = () => {
         setIsLoading] =
         useState(false)
 
-    const token = useSelector((state:RootState)=>state.auth.token)
+    const token = useSelector((state: RootState) => state.auth.token)
 
     const fetchQuizzes =
         async () => {
@@ -88,7 +90,7 @@ const QuizCatalog = () => {
         <div className="space-y-6 p-6">
             <div>
                 <h1 className="text-3xl font-semibold tracking-tight">
-                    Available Quizzes
+                    <TypingAnimation>Available Quizzes</TypingAnimation>
                 </h1>
 
                 <p className="mt-1 text-sm text-muted-foreground">
@@ -114,8 +116,9 @@ const QuizCatalog = () => {
                                         key={
                                             quiz.publicId
                                         }
-                                        className="transition-shadow hover:shadow-md"
+                                        className="transition-shadow hover:shadow-md relative"
                                     >
+                                        <BorderBeam duration={8} size={100} />
                                         <CardHeader className="space-y-4">
                                             <div className="flex items-center justify-between">
                                                 <div className="rounded-md bg-primary-foreground p-2">

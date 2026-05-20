@@ -200,13 +200,14 @@ const EditQuestion = () => {
                             },
                         }
                     )
+                console.log(response.data.data);
 
                 const question =
                     response.data.data.find(
                         (
                             item: any
                         ) =>
-                            item.publicId ===
+                            item?.publicId ===
                             publicId
                     )
 
