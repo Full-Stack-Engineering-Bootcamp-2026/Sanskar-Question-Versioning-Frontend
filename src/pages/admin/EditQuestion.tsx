@@ -56,6 +56,8 @@ import {
 import type {
     RootState,
 } from "@/redux/stores/store"
+import { AuroraText } from "@/components/ui/aurora-text"
+import { TypingAnimation } from "@/components/ui/typing-animation"
 
 enum AnswerType {
     SINGLE_SELECT = "SINGLE_SELECT",
@@ -327,7 +329,11 @@ const EditQuestion = () => {
         <div className="mx-auto max-w-4xl space-y-6 p-6">
             <div>
                 <h1 className="text-3xl font-semibold tracking-tight">
-                    Edit Question
+                    <AuroraText>
+                        <TypingAnimation>
+                            Edit Question
+                        </TypingAnimation>
+                    </AuroraText>
                 </h1>
 
                 <p className="mt-1 text-sm text-muted-foreground">

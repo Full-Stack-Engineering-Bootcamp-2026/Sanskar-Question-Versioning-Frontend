@@ -30,6 +30,7 @@ import { Button } from "./ui/button"
 import { logout } from "@/redux/slices/authSlice"
 
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "./ui/alert-dialog"
+import { AuroraText } from "./ui/aurora-text"
 
 const adminItems = [
     {
@@ -102,12 +103,14 @@ const AppSidebar = () => {
                     </div>
 
                     <div>
-                        <h2 className="font-serif text-lg font-semibold">
-                            QuizMaster
-                        </h2>
+                        <h1 className="font-serif text-2xl font-semibold">
+                            <AuroraText>
+                                QuizMaster
+                            </AuroraText>
+                        </h1>
 
                         <p className="text-xs">
-                            Internal Management
+                            Quiz Application
                         </p>
                     </div>
                 </Link>

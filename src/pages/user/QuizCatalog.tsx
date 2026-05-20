@@ -30,6 +30,7 @@ import { useSelector } from "react-redux"
 import type { RootState } from "@/redux/stores/store"
 import { BorderBeam } from "@/components/ui/border-beam"
 import { TypingAnimation } from "@/components/ui/typing-animation"
+import { AuroraText } from "@/components/ui/aurora-text"
 
 interface Quiz {
     publicId: string
@@ -90,7 +91,9 @@ const QuizCatalog = () => {
         <div className="space-y-6 p-6">
             <div>
                 <h1 className="text-3xl font-semibold tracking-tight">
-                    <TypingAnimation>Available Quizzes</TypingAnimation>
+                    <AuroraText>
+                        <TypingAnimation>Available Quizzes</TypingAnimation>
+                    </AuroraText>
                 </h1>
 
                 <p className="mt-1 text-sm text-muted-foreground">

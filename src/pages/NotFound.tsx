@@ -11,28 +11,42 @@ import {
 } from "@/components/ui/card"
 
 import { Button } from "@/components/ui/button"
+import { AuroraText } from "@/components/ui/aurora-text"
+import { TypingAnimation } from "@/components/ui/typing-animation"
 
 const NotFound = () => {
     return (
-        <div className="flex min-h-screen items-center justify-center bg-[#f8fafc] px-4">
+        <div className="flex min-h-screen items-center justify-center  px-4">
             <Card className="w-full max-w-lg border shadow-sm">
                 <CardContent className="flex flex-col items-center space-y-6 p-10 text-center">
-                    <div className="flex h-20 w-20 items-center justify-center rounded-full bg-blue-100">
-                        <FileQuestionMark className="h-10 w-10 text-blue-700" />
+                    <div className="flex h-20 w-20 items-center justify-center rounded-full">
+                        <FileQuestionMark className="h-10 w-10" />
                     </div>
 
                     <div className="space-y-2">
-                        <h1 className="text-6xl font-bold tracking-tight text-gray-900">
-                            404
+                        <h1 className="text-6xl font-bold ">
+                            <AuroraText>
+                                <TypingAnimation>
+                                    404
+                                </TypingAnimation>
+                            </AuroraText>
                         </h1>
 
                         <h2 className="text-2xl font-semibold text-gray-800">
-                            Page Not Found
+                            <AuroraText>
+                                <TypingAnimation>
+                                    Page not found
+                                </TypingAnimation>
+                            </AuroraText>
                         </h2>
 
                         <p className="mx-auto max-w-md text-sm text-muted-foreground">
-                            The page you are looking for does not exist
-                            or may have been moved.
+                            <AuroraText>
+                                <TypingAnimation duration={30}>
+                                    The page you are looking for does not exist
+                                    or may have been moved.
+                                </TypingAnimation>
+                            </AuroraText>
                         </p>
                     </div>
 

@@ -37,6 +37,7 @@ import {
     useNavigate,
 } from "react-router-dom"
 import { BorderBeam } from "@/components/ui/border-beam"
+import { AuroraText } from "@/components/ui/aurora-text"
 
 interface LoginFormData {
     email: string
@@ -149,15 +150,18 @@ const Login = () => {
     return (
         <div className="flex min-h-screen items-center justify-center  px-4">
             <Card className="relative w-full max-w-md overflow-hidden border  shadow-sm pt-0">
+                <BorderBeam duration={8} size={100} />
                 <CardHeader className="border-b  px-6 py-6">
                     <div className="flex items-center gap-3">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-md border border-primary bg-white">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-md border">
                             <FileQuestionMark className="h-5 w-5 text-primary" />
                         </div>
 
                         <div>
                             <CardTitle className="font-serif text-3xl font-semibold tracking-tight">
-                                QuizMaster
+                                <AuroraText>
+                                    QuizMaster
+                                </AuroraText>
                             </CardTitle>
 
                             <CardDescription className="mt-1 text-sm text-slate-600">
@@ -278,7 +282,6 @@ const Login = () => {
                     </div>
 
                 </CardContent>
-                <BorderBeam duration={8} size={100} />
             </Card>
         </div>
     )

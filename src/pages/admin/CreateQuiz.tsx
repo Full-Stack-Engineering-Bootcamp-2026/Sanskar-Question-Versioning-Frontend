@@ -34,6 +34,8 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { useSelector } from "react-redux"
 import type { RootState } from "@/redux/stores/store"
 import { useNavigate } from "react-router-dom"
+import { AuroraText } from "@/components/ui/aurora-text"
+import { TypingAnimation } from "@/components/ui/typing-animation"
 
 interface Question {
     publicId: string
@@ -191,7 +193,11 @@ const CreateQuiz = () => {
         <div className="mx-auto max-w-5xl space-y-6 p-6">
             <div>
                 <h1 className="text-3xl font-semibold tracking-tight">
-                    Create Quiz
+                    <AuroraText>
+                        <TypingAnimation>
+                            Create Quiz
+                        </TypingAnimation>
+                    </AuroraText>
                 </h1>
 
                 <p className="mt-1 text-sm text-muted-foreground">

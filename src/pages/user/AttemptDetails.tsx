@@ -28,6 +28,8 @@ import {
 } from "lucide-react"
 import type { RootState } from "@/redux/stores/store"
 import { useSelector } from "react-redux"
+import { AuroraText } from "@/components/ui/aurora-text"
+import { TypingAnimation } from "@/components/ui/typing-animation"
 
 interface Answer {
     publicId: string
@@ -127,9 +129,14 @@ const AttemptDetails = () => {
             <div className="flex items-start justify-between">
                 <div>
                     <h1 className="text-3xl font-semibold tracking-tight">
-                        {
-                            attempt.quiz.title
-                        }
+                        <AuroraText>
+                            <TypingAnimation>
+                                {
+                                    attempt.quiz.title
+                                }
+                            </TypingAnimation>
+                        </AuroraText>
+
                     </h1>
 
                     <p className="mt-1 text-sm text-muted-foreground">

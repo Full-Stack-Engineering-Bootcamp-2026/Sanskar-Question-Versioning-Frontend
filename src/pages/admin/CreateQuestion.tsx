@@ -44,6 +44,8 @@ import {
     useSelector,
 } from "react-redux"
 import type { RootState } from "@/redux/stores/store"
+import { TypingAnimation } from "@/components/ui/typing-animation"
+import { AuroraText } from "@/components/ui/aurora-text"
 
 
 
@@ -236,7 +238,11 @@ const CreateQuestion = () => {
         <div className="mx-auto max-w-4xl space-y-6 p-6">
             <div>
                 <h1 className="text-3xl font-semibold tracking-tight">
-                    Create Question
+                    <AuroraText>
+                        <TypingAnimation>
+                            Create Question
+                        </TypingAnimation>
+                    </AuroraText>
                 </h1>
 
                 <p className="mt-1 text-sm text-muted-foreground">

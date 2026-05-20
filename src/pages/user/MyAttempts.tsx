@@ -38,6 +38,8 @@ import {
 } from "react-router-dom"
 import { useSelector } from "react-redux"
 import type { RootState } from "@/redux/stores/store"
+import { AuroraText } from "@/components/ui/aurora-text"
+import { TypingAnimation } from "@/components/ui/typing-animation"
 
 interface Attempt {
     publicId: string
@@ -104,7 +106,11 @@ const MyAttempts = () => {
         <div className="space-y-6 p-6">
             <div>
                 <h1 className="text-3xl font-semibold tracking-tight">
-                    My Attempts
+                    <AuroraText>
+                        <TypingAnimation>
+                            My Attempts
+                        </TypingAnimation>
+                    </AuroraText>
                 </h1>
 
                 <p className="mt-1 text-sm text-muted-foreground">
