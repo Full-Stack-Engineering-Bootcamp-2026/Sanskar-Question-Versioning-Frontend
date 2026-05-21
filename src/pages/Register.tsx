@@ -39,6 +39,7 @@ import {
 import { BorderBeam } from "@/components/ui/border-beam"
 import { LineShadowText } from "@/components/ui/line-shadow-text"
 import { AuroraText } from "@/components/ui/aurora-text"
+import { MagicCard } from "@/components/ui/magic-card"
 
 interface RegisterFormData {
     name: string
@@ -167,156 +168,158 @@ const Register = () => {
 
     return (
         <div className="flex min-h-screen items-center justify-center px-4">
-            <Card className="relative w-full max-w-md overflow-hidden border  shadow-sm pt-0">
+            <Card className="relative w-full max-w-md overflow-hidden border  shadow-sm py-0">
                 <BorderBeam duration={8} size={100} />
-                <CardHeader className="border-b  px-6 py-6">
-                    <div className="flex items-center gap-3">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-md border ">
-                            <FileQuestionMark className="h-5 w-5 text-primary" />
+                <MagicCard gradientColor="#262626">
+                    <CardHeader className="border-b  px-6 py-6">
+                        <div className="flex items-center gap-3">
+                            <div className="flex h-10 w-10 items-center justify-center rounded-md border ">
+                                <FileQuestionMark className="h-5 w-5 text-primary" />
+                            </div>
+
+                            <div>
+                                <CardTitle className="font-serif text-3xl font-semibold tracking-tight">
+                                    <AuroraText>
+                                        QuizMaster
+                                    </AuroraText>
+                                </CardTitle>
+
+                                <CardDescription className="mt-1 text-sm">
+                                    Create your account
+                                </CardDescription>
+                            </div>
                         </div>
+                    </CardHeader>
 
-                        <div>
-                            <CardTitle className="font-serif text-3xl font-semibold tracking-tight">
-                                <AuroraText>
-                                    QuizMaster
-                                </AuroraText>
-                            </CardTitle>
-
-                            <CardDescription className="mt-1 text-sm">
-                                Create your account
-                            </CardDescription>
-                        </div>
-                    </div>
-                </CardHeader>
-
-                <CardContent className="px-6 py-2">
-                    <form
-                        onSubmit={handleSubmit(
-                            onSubmit
-                        )}
-                        className="space-y-6"
-                    >
-                        <div className="space-y-2">
-                            <Label htmlFor="name">
-                                Full Name
-                            </Label>
-
-                            <Input
-                                id="name"
-                                placeholder="John Doe"
-                                className="h-11"
-                                {
-                                ...register(
-                                    "name"
-                                )
-                                }
-                            />
-
-                            {
-                                errors.name && (
-                                    <p className="text-sm text-red-500">
-                                        {
-                                            errors
-                                                .name
-                                                .message
-                                        }
-                                    </p>
-                                )
-                            }
-                        </div>
-
-                        <div className="space-y-2">
-                            <Label htmlFor="email">
-                                Email Address
-                            </Label>
-
-                            <Input
-                                id="email"
-                                type="email"
-                                placeholder="john@example.com"
-                                className="h-11"
-                                {
-                                ...register(
-                                    "email"
-                                )
-                                }
-                            />
-
-                            {
-                                errors.email && (
-                                    <p className="text-sm text-red-500">
-                                        {
-                                            errors
-                                                .email
-                                                .message
-                                        }
-                                    </p>
-                                )
-                            }
-                        </div>
-
-                        <div className="space-y-2">
-                            <Label htmlFor="password">
-                                Password
-                            </Label>
-
-                            <Input
-                                id="password"
-                                type="password"
-                                placeholder="••••••••"
-                                className="h-11"
-                                {
-                                ...register(
-                                    "password"
-                                )
-                                }
-                            />
-
-                            {
-                                errors.password && (
-                                    <p className="text-sm text-red-500">
-                                        {
-                                            errors
-                                                .password
-                                                .message
-                                        }
-                                    </p>
-                                )
-                            }
-                        </div>
-
-                        <Button
-                            type="submit"
-                            disabled={
-                                isSubmitting
-                            }
-                            className="h-11 w-full"
+                    <CardContent className="px-6 py-2">
+                        <form
+                            onSubmit={handleSubmit(
+                                onSubmit
+                            )}
+                            className="space-y-6"
                         >
-                            {
-                                isSubmitting
-                                    ? "Creating account..."
-                                    : "Register"
-                            }
+                            <div className="space-y-2">
+                                <Label htmlFor="name">
+                                    Full Name
+                                </Label>
 
-                            {
-                                !isSubmitting && (
-                                    <ArrowRight className="ml-2 h-4 w-4" />
-                                )
-                            }
-                        </Button>
-                    </form>
+                                <Input
+                                    id="name"
+                                    placeholder="John Doe"
+                                    className="h-11"
+                                    {
+                                    ...register(
+                                        "name"
+                                    )
+                                    }
+                                />
 
-                    <div className="mt-2 text-center text-sm">
-                        Already have an account?
-                        <Button
-                            variant="link"
-                            className=" hover:underline"
-                            onClick={() => navigate("/login")}
-                        >
-                            Login
-                        </Button>
-                    </div>
-                </CardContent>
+                                {
+                                    errors.name && (
+                                        <p className="text-sm text-red-500">
+                                            {
+                                                errors
+                                                    .name
+                                                    .message
+                                            }
+                                        </p>
+                                    )
+                                }
+                            </div>
+
+                            <div className="space-y-2">
+                                <Label htmlFor="email">
+                                    Email Address
+                                </Label>
+
+                                <Input
+                                    id="email"
+                                    type="email"
+                                    placeholder="john@example.com"
+                                    className="h-11"
+                                    {
+                                    ...register(
+                                        "email"
+                                    )
+                                    }
+                                />
+
+                                {
+                                    errors.email && (
+                                        <p className="text-sm text-red-500">
+                                            {
+                                                errors
+                                                    .email
+                                                    .message
+                                            }
+                                        </p>
+                                    )
+                                }
+                            </div>
+
+                            <div className="space-y-2">
+                                <Label htmlFor="password">
+                                    Password
+                                </Label>
+
+                                <Input
+                                    id="password"
+                                    type="password"
+                                    placeholder="••••••••"
+                                    className="h-11"
+                                    {
+                                    ...register(
+                                        "password"
+                                    )
+                                    }
+                                />
+
+                                {
+                                    errors.password && (
+                                        <p className="text-sm text-red-500">
+                                            {
+                                                errors
+                                                    .password
+                                                    .message
+                                            }
+                                        </p>
+                                    )
+                                }
+                            </div>
+
+                            <Button
+                                type="submit"
+                                disabled={
+                                    isSubmitting
+                                }
+                                className="h-11 w-full"
+                            >
+                                {
+                                    isSubmitting
+                                        ? "Creating account..."
+                                        : "Register"
+                                }
+
+                                {
+                                    !isSubmitting && (
+                                        <ArrowRight className="ml-2 h-4 w-4" />
+                                    )
+                                }
+                            </Button>
+                        </form>
+
+                        <div className="mt-2 text-center text-sm">
+                            Already have an account?
+                            <Button
+                                variant="link"
+                                className=" hover:underline"
+                                onClick={() => navigate("/login")}
+                            >
+                                Login
+                            </Button>
+                        </div>
+                    </CardContent>
+                </MagicCard>
             </Card>
         </div>
     )

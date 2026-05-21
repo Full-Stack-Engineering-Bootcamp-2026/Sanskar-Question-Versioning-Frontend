@@ -61,6 +61,11 @@ const adminItems = [
         icon: BookOpen,
         url: "/admin/quizzes",
     },
+    {
+        title: "My Attempts",
+        icon: ClipboardCheck,
+        url: "/attempts",
+    }
 ]
 
 const userItems = [

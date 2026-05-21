@@ -38,6 +38,7 @@ import {
 } from "react-router-dom"
 import { BorderBeam } from "@/components/ui/border-beam"
 import { AuroraText } from "@/components/ui/aurora-text"
+import { MagicCard } from "@/components/ui/magic-card"
 
 interface LoginFormData {
     email: string
@@ -173,141 +174,143 @@ const Login = () => {
 
     return (
         <div className="flex min-h-screen items-center justify-center  px-4">
-            <Card className="relative w-full max-w-md overflow-hidden border  shadow-sm pt-0">
+            <Card className="relative w-full max-w-md overflow-hidden border  shadow-sm py-0">
                 <BorderBeam duration={8} size={100} />
-                <CardHeader className="border-b  px-6 py-6">
-                    <div className="flex items-center gap-3">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-md border">
-                            <FileQuestionMark className="h-5 w-5 text-primary" />
-                        </div>
-
-                        <div>
-                            <CardTitle className="font-serif text-3xl font-semibold tracking-tight">
-                                <AuroraText>
-                                    QuizMaster
-                                </AuroraText>
-                            </CardTitle>
-
-                            <CardDescription className="mt-1 text-sm text-slate-600">
-                                Quiz Management Portal
-                            </CardDescription>
-                        </div>
-                    </div>
-                </CardHeader>
-
-                <CardContent className="px-6 py-2">
-                    <form
-                        onSubmit={handleSubmit(
-                            onSubmit
-                        )}
-                        className="space-y-6"
-                    >
-                        <div className="space-y-2">
-                            <Label
-                                htmlFor="email"
-                            >
-                                Email Address
-                            </Label>
-
-                            <Input
-                                id="email"
-                                type="email"
-                                placeholder="admin@quizmaster.com"
-                                className="h-11"
-                                {
-                                ...register(
-                                    "email"
-                                )
-                                }
-                            />
-
-                            {
-                                errors.email && (
-                                    <p className="text-sm text-red-500">
-                                        {
-                                            errors
-                                                .email
-                                                .message
-                                        }
-                                    </p>
-                                )
-                            }
-                        </div>
-
-                        <div className="space-y-2">
-                            <div className="flex items-center justify-between">
-                                <Label
-                                    htmlFor="password"
-                                >
-                                    Password
-                                </Label>
-
-                                <Button
-                                    variant="link"
-                                    type="button"
-                                    className="text-xs  hover:underline"
-                                >
-                                    Forgot password?
-                                </Button>
+                <MagicCard gradientColor="#262626">
+                    <CardHeader className="border-b  px-6 py-6">
+                        <div className="flex items-center gap-3">
+                            <div className="flex h-10 w-10 items-center justify-center rounded-md border">
+                                <FileQuestionMark className="h-5 w-5 text-primary" />
                             </div>
 
-                            <Input
-                                id="password"
-                                type="password"
-                                placeholder="••••••••"
-                                className="h-11"
-                                {
-                                ...register(
-                                    "password"
-                                )
-                                }
-                            />
+                            <div>
+                                <CardTitle className="font-serif text-3xl font-semibold tracking-tight">
+                                    <AuroraText>
+                                        QuizMaster
+                                    </AuroraText>
+                                </CardTitle>
 
-                            {
-                                errors.password && (
-                                    <p className="text-sm text-red-500">
-                                        {
-                                            errors
-                                                .password
-                                                .message
-                                        }
-                                    </p>
-                                )
-                            }
+                                <CardDescription className="mt-1 text-sm text-slate-600">
+                                    Quiz Management Portal
+                                </CardDescription>
+                            </div>
+                        </div>
+                    </CardHeader>
+
+                    <CardContent className="px-6 py-2">
+                        <form
+                            onSubmit={handleSubmit(
+                                onSubmit
+                            )}
+                            className="space-y-6"
+                        >
+                            <div className="space-y-2">
+                                <Label
+                                    htmlFor="email"
+                                >
+                                    Email Address
+                                </Label>
+
+                                <Input
+                                    id="email"
+                                    type="email"
+                                    placeholder="admin@quizmaster.com"
+                                    className="h-11"
+                                    {
+                                    ...register(
+                                        "email"
+                                    )
+                                    }
+                                />
+
+                                {
+                                    errors.email && (
+                                        <p className="text-sm text-red-500">
+                                            {
+                                                errors
+                                                    .email
+                                                    .message
+                                            }
+                                        </p>
+                                    )
+                                }
+                            </div>
+
+                            <div className="space-y-2">
+                                <div className="flex items-center justify-between">
+                                    <Label
+                                        htmlFor="password"
+                                    >
+                                        Password
+                                    </Label>
+
+                                    <Button
+                                        variant="link"
+                                        type="button"
+                                        className="text-xs  hover:underline"
+                                    >
+                                        Forgot password?
+                                    </Button>
+                                </div>
+
+                                <Input
+                                    id="password"
+                                    type="password"
+                                    placeholder="••••••••"
+                                    className="h-11"
+                                    {
+                                    ...register(
+                                        "password"
+                                    )
+                                    }
+                                />
+
+                                {
+                                    errors.password && (
+                                        <p className="text-sm text-red-500">
+                                            {
+                                                errors
+                                                    .password
+                                                    .message
+                                            }
+                                        </p>
+                                    )
+                                }
+                            </div>
+
+                            <Button
+                                type="submit"
+                                disabled={
+                                    isSubmitting
+                                }
+                                className="h-11 w-full hover:bg-gray-700 transition duration-300"
+                            >
+                                {
+                                    isSubmitting
+                                        ? "Logging in..."
+                                        : "Login"
+                                }
+
+                                {
+                                    !isSubmitting && (
+                                        <ArrowRight className="ml-2 h-4 w-4" />
+                                    )
+                                }
+                            </Button>
+                        </form>
+
+                        <div className="mt-8 text-center text-sm text-slate-600">
+                            Don't have an account?
+
+                            <Button onClick={() => navigate("/register")} variant="link" className="hover:underline">
+                                Register here
+                            </Button>
                         </div>
 
-                        <Button
-                            type="submit"
-                            disabled={
-                                isSubmitting
-                            }
-                            className="h-11 w-full hover:bg-gray-700 transition duration-300"
-                        >
-                            {
-                                isSubmitting
-                                    ? "Logging in..."
-                                    : "Login"
-                            }
-
-                            {
-                                !isSubmitting && (
-                                    <ArrowRight className="ml-2 h-4 w-4" />
-                                )
-                            }
-                        </Button>
-                    </form>
-
-                    <div className="mt-8 text-center text-sm text-slate-600">
-                        Don't have an account?
-
-                        <Button onClick={() => navigate("/register")} variant="link" className="hover:underline">
-                            Register here
-                        </Button>
-                    </div>
-
-                </CardContent>
+                    </CardContent>
+                </MagicCard>
             </Card>
-        </div>
+        </div >
     )
 }
 
