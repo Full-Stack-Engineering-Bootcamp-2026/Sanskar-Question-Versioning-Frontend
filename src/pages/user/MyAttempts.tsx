@@ -197,14 +197,15 @@ const MyAttempts = () => {
                                                 <TableCell>
                                                     <Badge
                                                         variant={
-                                                            attempt.status ===
-                                                                "SUBMITTED"
-                                                                ? "default"
+                                                            attempt.submittedAt ?
+                                                                "default"
                                                                 : "secondary"
                                                         }
                                                     >
                                                         {
-                                                            attempt.status
+                                                            attempt.submittedAt
+                                                                ? "Completed"
+                                                                : "In Progress"
                                                         }
                                                     </Badge>
                                                 </TableCell>

@@ -35,6 +35,7 @@ import { useSelector } from "react-redux"
 import type { RootState } from "@/redux/stores/store"
 import { TypingAnimation } from "@/components/ui/typing-animation"
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog"
+import { AuroraText } from "@/components/ui/aurora-text"
 
 interface Option {
     publicId: string
@@ -332,10 +333,10 @@ const AttemptQuiz = () => {
     }
 
     return (
-        <div className="mx-auto max-w-4xl space-y-6 p-6">
+        <div className="space-y-6 p-6">
             <div>
                 <h1 className="text-3xl font-semibold tracking-tight">
-                    {quiz.title}
+                   <AuroraText>{quiz.title}</AuroraText> 
                 </h1>
 
                 <p className="mt-1 text-sm text-muted-foreground">

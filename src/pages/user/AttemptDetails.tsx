@@ -98,6 +98,7 @@ const AttemptDetails = () => {
                 setAttempt(
                     response.data.data
                 )
+
             } catch (error) {
                 console.log(error)
 
@@ -125,7 +126,7 @@ const AttemptDetails = () => {
     }
 
     return (
-        <div className="mx-auto max-w-5xl space-y-6 p-6">
+        <div className="space-y-6 p-6">
             <div className="flex items-start justify-between">
                 <div>
                     <h1 className="text-3xl font-semibold tracking-tight">
@@ -147,9 +148,17 @@ const AttemptDetails = () => {
                     </p>
                 </div>
 
-                <Badge>
+                <Badge
+                    variant={
+                        attempt.submittedAt
+                            ? "default"
+                            : "secondary"
+                    }
+                >
                     {
-                        attempt.status
+                        attempt.submittedAt
+                            ? "Completed"
+                            : "In Progress"
                     }
                 </Badge>
             </div>

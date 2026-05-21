@@ -103,12 +103,39 @@ const Login = () => {
         async (
             data
         ) => {
+
             try {
-                const response =
-                    await axios.post(
+                await new Promise(
+                    (
+                        resolve
+                    ) =>
+                        setTimeout(
+                            resolve,
+                            300
+                        )
+                )
+                const loginPromise =
+                    axios.post(
                         "http://localhost:3000/api/users/login",
                         data
                     )
+
+                toast.promise(
+                    loginPromise,
+                    {
+                        pending:
+                            "Logging in...",
+
+                        success:
+                            "Login successful",
+
+                        error:
+                            "Invalid email or password",
+                    }
+                )
+
+                const response =
+                    await loginPromise
 
                 dispatch(
                     loginSuccess({
@@ -120,30 +147,27 @@ const Login = () => {
                     })
                 )
 
-                toast.success(
-                    "Login successful"
-                )
-
                 const role =
                     response.data.data.user.role
 
                 if (
                     role === "ADMIN"
                 ) {
+
                     navigate(
                         "/admin/quizzes"
                     )
+
                 } else {
+
                     navigate(
                         "/quizzes"
                     )
                 }
-            } catch (err) {
-                console.log(err)
 
-                toast.error(
-                    "Invalid email or password"
-                )
+            } catch (err) {
+
+                console.log(err)
             }
         }
 
