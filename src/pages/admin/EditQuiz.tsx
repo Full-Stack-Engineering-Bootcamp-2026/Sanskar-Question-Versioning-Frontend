@@ -36,9 +36,13 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
 import { Checkbox } from "@/components/ui/checkbox"
+
 import { useSelector } from "react-redux"
+
 import type { RootState } from "@/redux/stores/store"
+
 import { AuroraText } from "@/components/ui/aurora-text"
+
 import { TypingAnimation } from "@/components/ui/typing-animation"
 
 interface Question {
@@ -51,12 +55,16 @@ interface Question {
     versionNumber: number
 }
 
+interface QuizQuestion {
+    questionPublicId: string
+}
+
 interface Quiz {
     publicId: string
 
     title: string
 
-    questions: Question[]
+    questions: QuizQuestion[]
 }
 
 interface EditQuizFormData {
@@ -77,15 +85,17 @@ const editQuizSchema =
     })
 
 const EditQuiz = () => {
+
     const { publicId } =
         useParams()
 
     const navigate =
         useNavigate()
 
-    const [questions,
-        setQuestions] =
-        useState<Question[]>([])
+    const [
+        questions,
+        setQuestions,
+    ] = useState<Question[]>([])
 
     const [
         selectedQuestions,
@@ -97,11 +107,19 @@ const EditQuiz = () => {
         setIsPageLoading,
     ] = useState(true)
 
-    const token = useSelector((state: RootState) => state.auth.token);
+    const token =
+        useSelector(
+            (
+                state: RootState
+            ) =>
+                state.auth.token
+        )
 
     const {
         register,
+
         handleSubmit,
+
         reset,
 
         formState: {
@@ -117,6 +135,7 @@ const EditQuiz = () => {
 
     const fetchQuestions =
         async () => {
+
             const response =
                 await axios.get(
                     "http://localhost:3000/api/questions",
@@ -129,14 +148,17 @@ const EditQuiz = () => {
                 )
 
             setQuestions(
-                response.data.data
-                    .filter(Boolean)
+                response.data.data.filter(
+                    Boolean
+                )
             )
         }
 
     const fetchQuiz =
         async () => {
+
             try {
+
                 const response =
                     await axios.get(
                         `http://localhost:3000/api/quizzes/${publicId}`,
@@ -162,11 +184,15 @@ const EditQuiz = () => {
                         (
                             question
                         ) =>
-                            question.publicId
+                            question.questionPublicId
                     )
                 )
+
             } catch (error) {
-                console.log(error)
+
+                console.log(
+                    error
+                )
 
                 toast.error(
                     "Failed to fetch quiz"
@@ -176,7 +202,9 @@ const EditQuiz = () => {
 
     const loadPage =
         async () => {
+
             try {
+
                 setIsPageLoading(
                     true
                 )
@@ -185,7 +213,9 @@ const EditQuiz = () => {
                     fetchQuestions(),
                     fetchQuiz(),
                 ])
+
             } finally {
+
                 setIsPageLoading(
                     false
                 )
@@ -193,7 +223,9 @@ const EditQuiz = () => {
         }
 
     useEffect(() => {
+
         loadPage()
+
     }, [])
 
     const onSubmit =
@@ -201,11 +233,14 @@ const EditQuiz = () => {
             data:
                 EditQuizFormData
         ) => {
+
             try {
+
                 if (
                     selectedQuestions.length ===
                     0
                 ) {
+
                     toast.error(
                         "Select at least one question"
                     )
@@ -214,7 +249,8 @@ const EditQuiz = () => {
                 }
 
                 const payload = {
-                    title: data.title,
+                    title:
+                        data.title,
 
                     questionPublicIds:
                         selectedQuestions,
@@ -238,8 +274,12 @@ const EditQuiz = () => {
                 navigate(
                     "/admin/quizzes"
                 )
+
             } catch (error) {
-                console.log(error)
+
+                console.log(
+                    error
+                )
 
                 toast.error(
                     "Failed to update quiz"
@@ -248,6 +288,7 @@ const EditQuiz = () => {
         }
 
     if (isPageLoading) {
+
         return (
             <div className="p-6">
                 Loading quiz...
@@ -257,35 +298,48 @@ const EditQuiz = () => {
 
     return (
         <div className="mx-auto max-w-5xl space-y-6 p-6">
+
             <div>
+
                 <h1 className="text-3xl font-semibold tracking-tight">
+
                     <AuroraText>
+
                         <TypingAnimation>
                             Edit Quiz
                         </TypingAnimation>
+
                     </AuroraText>
+
                 </h1>
 
                 <p className="mt-1 text-sm text-muted-foreground">
                     Modify quiz details and questions.
                 </p>
+
             </div>
 
             <Card>
+
                 <CardHeader className="border-b">
+
                     <CardTitle>
                         Quiz Details
                     </CardTitle>
+
                 </CardHeader>
 
                 <CardContent className="pt-6">
+
                     <form
                         onSubmit={handleSubmit(
                             onSubmit
                         )}
                         className="space-y-6"
                     >
+
                         <div className="space-y-2">
+
                             <Label>
                                 Quiz Title
                             </Label>
@@ -310,126 +364,155 @@ const EditQuiz = () => {
                                     </p>
                                 )
                             }
+
                         </div>
 
                         <div className="space-y-3">
+
                             <div className="flex items-center justify-between">
+
                                 <Label>
                                     Select Questions
                                 </Label>
 
                                 <span className="text-sm text-muted-foreground">
+
                                     {
                                         selectedQuestions.length
                                     }
+
                                     {" "}
                                     selected
+
                                 </span>
+
                             </div>
 
                             <div className="rounded-md border">
+
                                 {
                                     questions.map(
                                         (
                                             question
-                                        ) => (
-                                            <div
-                                                key={
-                                                    question.publicId
-                                                }
-                                                className="flex items-start gap-3 border-b p-4 last:border-b-0"
-                                            >
-                                                <Checkbox
-                                                    checked={selectedQuestions.includes(
-                                                        question.publicId
-                                                    )}
+                                        ) => {
 
-                                                    onCheckedChange={(
-                                                        checked
-                                                    ) => {
-                                                        if (
+                                            const isSelected =
+                                                selectedQuestions.includes(
+                                                    question.publicId
+                                                )
+
+                                            return (
+                                                <div
+                                                    key={
+                                                        question.publicId
+                                                    }
+                                                    className="flex items-start gap-3 border-b p-4 last:border-b-0"
+                                                >
+
+                                                    <Checkbox
+                                                        checked={
+                                                            isSelected
+                                                        }
+
+                                                        onCheckedChange={(
                                                             checked
-                                                        ) {
-                                                            setSelectedQuestions(
-                                                                (
-                                                                    prev
-                                                                ) =>
-                                                                    prev.includes(
-                                                                        question.publicId
-                                                                    )
-                                                                        ? prev
-                                                                        : [
+                                                        ) => {
+
+                                                            if (
+                                                                checked
+                                                            ) {
+
+                                                                setSelectedQuestions(
+                                                                    (
+                                                                        prev
+                                                                    ) => [
                                                                             ...prev,
                                                                             question.publicId,
                                                                         ]
-                                                            )
-                                                        } else {
-                                                            setSelectedQuestions(
-                                                                (
-                                                                    prev
-                                                                ) =>
-                                                                    prev.filter(
-                                                                        (
-                                                                            id
-                                                                        ) =>
-                                                                            id !==
-                                                                            question.publicId
-                                                                    )
-                                                            )
-                                                        }
-                                                    }}
-                                                />
+                                                                )
 
-                                                <div className="space-y-1">
-                                                    <p className="text-sm font-medium">
-                                                        {
-                                                            question.questionText
-                                                        }
-                                                    </p>
+                                                            } else {
 
-                                                    <p className="text-xs text-muted-foreground">
-                                                        {
-                                                            question.answerType
-                                                                .replaceAll(
+                                                                setSelectedQuestions(
+                                                                    (
+                                                                        prev
+                                                                    ) =>
+                                                                        prev.filter(
+                                                                            (
+                                                                                id
+                                                                            ) =>
+                                                                                id !==
+                                                                                question.publicId
+                                                                        )
+                                                                )
+                                                            }
+                                                        }}
+                                                    />
+
+                                                    <div className="space-y-1">
+
+                                                        <p className="text-sm font-medium">
+                                                            {
+                                                                question.questionText
+                                                            }
+                                                        </p>
+
+                                                        <p className="text-xs text-muted-foreground">
+
+                                                            {
+                                                                question.answerType.replaceAll(
                                                                     "_",
                                                                     " "
                                                                 )
-                                                        }
+                                                            }
 
-                                                        {" • "}
+                                                            {" • "}
 
-                                                        v
-                                                        {
-                                                            question.versionNumber
-                                                        }
-                                                    </p>
+                                                            v
+                                                            {
+                                                                question.versionNumber
+                                                            }
+
+                                                        </p>
+
+                                                    </div>
+
                                                 </div>
-                                            </div>
-                                        )
+                                            )
+                                        }
                                     )
                                 }
+
                             </div>
+
                         </div>
 
                         <div className="flex justify-end">
+
                             <Button
                                 type="submit"
                                 disabled={
                                     isSubmitting
                                 }
                             >
+
                                 {
                                     isSubmitting
                                         ? "Updating..."
                                         : "Update Quiz"
                                 }
+
                             </Button>
+
                         </div>
+
                     </form>
+
                 </CardContent>
+
             </Card>
+
         </div>
     )
 }
-
 export default EditQuiz
